@@ -1,0 +1,72 @@
+
+
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <style>
+        {% include "myrecipejournal/print.css" %}
+      </style>
+  </head>
+
+
+    <body>
+    <div class="recipe-container">
+        
+        <h1 class="recipe-title">{{ recipe.title }}</h1>   
+        <p class="recipe-description">
+            
+            <strong>by {{ recipe.owner.username}} </strong>
+        
+            {{ recipe.description }}
+        </p>
+
+        <div class="recipe-meta">
+            <span> Cook time: <strong>{{ recipe.cook_time }}</strong></span>
+            <span>Serves:<strong>{{ recipe.serves}}</strong></span>
+            <span class="text-muted">created on {{ recipe.created_at|date:"M d, Y" }}</span>
+
+        </div>
+        
+            
+        <section class="recipe-section" >
+            <h2 class="section-title">Photos</h2>
+            <div class="recipe-photo-gallery">
+                {% for photo in photos %}
+
+                    <img src="{{ photo.image.path }}" class="recipe-photo">
+                {% empty %}
+                    <p>No photos yet</p>
+                {% endfor %}
+            </div>
+        </section>
+
+
+        <section class="recipe-section ingredient-container">
+            <h2 class="section-title">Ingredients</h2>
+            <ul class="ingredient-list">
+                    {% for ingredient in ingredients %}
+                        <li>{{ingredient.quantity}} {{ ingredient.unit}} {{ingredient.name}} </li>
+                    {% empty %}
+                        No ingredients yet
+                    {% endfor %}
+            </ul>         
+        </section>
+              
+
+        <section class="recipe-section instruction-container">
+            <h2 class="section-title">Instructions</h2>
+            <ol class="instruction-list">
+                {% for instruction in instructions %}
+                    <li>{{instruction.description}}</li>
+                {% empty %}
+                    No instructions yet
+                {% endfor %}
+        </section>
+        
+
+
+    </div>
+    </body>
+</html>

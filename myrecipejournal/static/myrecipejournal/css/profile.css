@@ -1,0 +1,108 @@
+.profile-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* horizontal centering */
+    text-align: center;      /* center text */
+}
+
+
+.profile-form {
+    background: var(--secondary);
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    overflow:hidden;
+    width:100%;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-page,
+.profile-card {
+    min-width:0;
+}
+
+/* PHOTO ROW */
+.profile-photo-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap; /* prevents overflow */
+    width: 100%;
+    justify-content: center;
+}
+
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    flex-shrink: 0; /* prevents image from stretching */
+    
+}
+
+/* NAME SECTION */
+.profile-name {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.profile-name h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--text);
+    gap: 10px;
+    flex-wrap: wrap; /* prevents overflow */
+}
+
+.profile-name p {
+    margin: 4px 0;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+/* BIO SECTION */
+.bio {
+    width: 100%;
+    
+}
+
+.bio textarea {
+    width: 100%;
+    min-height: 180px !important;
+    height: auto !important;
+    max-height: none;
+    box-sizing: border-box;
+    resize: vertical; /* optional */
+}
+
+
+.profile-name-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.profile-name-row input {
+    flex: 1;              /* both fields stretch evenly */
+    min-width: 0;         /* prevents overflow */
+}
+
+
+
+ @media (prefers-color-scheme: dark) {
+    .profile-form {
+        background: var(--primary);
+    }
+ }

@@ -1,0 +1,37 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}About{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/about.css' %}">
+
+
+<div class="about-container">
+    <h1>About LemonDrizzle</h1>
+    <div class="about-top">
+        <div class="photo-section">
+            <img src="{% static 'myrecipejournal/about_photo.jpg' %}" class="about-photo">
+        </div>
+
+        <div class="about-text">
+            <h3>Inspiration...</h3>
+            <p>It is simply about the food. I imagine love tastes like food; sweet and savoury, sugar and salt and spice. I love cakes, buns and tasty stews and trying out new recipes.</p>
+           
+        </div>
+            
+    </div>
+
+    <div class="about-desc">
+        <p>For almost a year, I have been writing my recipes at the back of my drawing book. I welcomed my baby girl recently and while home for maternity leave, I got cooking
+                .. lots of cooking. Trying to keep track of how much sugar, milk, flour was just right for my cakes and bread has been hectic since I filled my drawing-book. I thought, why not make it a virtual book that I can edit, add photos and share with friends who are tantalized by my whatsapp posts of food. </p>
+        
+        <h3>My hope...</h3>
+        <p>Is that this web-app is a space for your home-made recipes, your nana's recipes and recipes you want to try out. 
+            You will also find a community of friends who love to cook, bake and eat. You know, because a little cake is good for the soul. </p>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

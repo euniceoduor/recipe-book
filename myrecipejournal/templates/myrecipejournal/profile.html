@@ -1,0 +1,52 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/profile.css' %}">
+
+<div class="profile-page">
+    <div class ="profile-card">
+            
+        <div class="profile-photo-section">
+            
+                {% if profile.profile_picture %}
+                    <img src= "{{ profile.profile_picture.url }}" class="profile-photo"/>
+                {% else %}
+                    <img src="{% static 'myrecipejournal/default_profile.webp' %}" class="profile-photo">
+                {% endif %}
+            
+        
+        </div>
+        
+        <div class="profile-name">
+                <h3>
+                    {{profile.first_name|default:""}} {{profile.last_name|default:""}}
+                    {% if not profile.first_name and not profile.last_name %}
+                        <span class="muted">Add a name</span>
+                    {% endif %}
+                </h3>
+                <p>Username: @{{profile.user.username}}</p>
+                <p>Account:
+                        {% if profile.is_private %}
+                            Private
+                        {% else %}
+                            Public
+                        {% endif %}
+                </p>
+            
+        </div>
+
+        <div class="bio">
+            <h4>Bio</h4>
+            <p>{{profile.bio| default:"No bio added yet."}}</p>
+        </div>
+
+        {% if is_owner %}
+            <a href= "{% url 'profile_edit' %}" class="btn btn-primary">Edit Profile</a>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Recipes{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/recipe_list.css' %}">
+
+<div>
+    <h3>{{ name }}, let's get cooking, baking, snacking...</h3>
+
+    {% if recipes %}
+        <div class="recipe-grid">
+            {% for recipe in recipes %}
+                <div class="recipe-card">
+                    <a href="{% url 'recipe_view' recipe.pk %}">
+                        {% if recipe.cover_photo %}
+                            <div class="recipe-card-photo">
+                                <img src ="{{ recipe.cover_photo }}">
+                            </div>
+                            <div class="recipe-card-body">
+                                <h3 class="recipe-card-title">{{ recipe.title}}</h3>
+                                <p class="recipe-card-desc">
+                                    <strong>{{ recipe.owner.username}}</strong> {{ recipe.description| truncatechars:80}}
+                                </p>
+                            </div>
+                        {% else %}
+                            <div class="recipe-card-photo placeholder">
+                                No Photo
+                            </div>
+                            <div class="recipe-card-body">
+                                <h3 class="recipe-card-title">{{ recipe.title}}</h3>
+                                <p class="recipe-card-desc">
+                                    {{ recipe.description| truncatechars:80}}
+                                </p>
+                            </div>
+                        {% endif %}
+                    </a>
+                </div>       
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No recipes yet. <a href="{% url 'recipe_create' %}">Add one</a>.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

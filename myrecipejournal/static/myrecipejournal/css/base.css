@@ -1,0 +1,516 @@
+/* ===================================================
+   1. GLOBAL THEME VARIABLES (LIGHT MODE DEFAULT)
+   =================================================== */
+:root {
+    /* Bakery brand colours */
+    --primary: #E8B86D;        /* Golden Crust */
+    --primary-hover: #d9a85f;
+
+    --secondary: #FFF7E6;      /* Warm Cream */
+    --secondary-hover: #f0e0c8;
+
+   --secondary-light: #FFFBF5;
+
+    --accent: #4A2C2A;         /* Deep Cocoa */
+    --accent-hover: #3a221c;
+
+    --danger: #B23A48;         /* Berry Jam Red */
+    --danger-hover: #922c3a;
+
+    /* Backgrounds */
+    --bg-main: #FFF7E6;
+    --bg-card: #ffffff;
+    --bg-nav: var(--primary);
+    --bg-footer: var(--accent);
+
+    /* Text */
+    --text-main: var(--accent);
+    --text-muted: #777;
+
+    /* Borders */
+    --border-light: #eee;
+}
+
+/* ===================================================
+   2. AUTO DARK MODE (NO TOGGLE REQUIRED)
+   =================================================== */
+
+
+/* ===================================================
+   3. GLOBAL LAYOUT & TYPOGRAPHY
+   =================================================== */
+html, body {
+    background: var(--secondary-hover);
+    color: var(--text-main);
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    width: 70%;
+    padding: 2rem;
+    background: var(--secondary);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 900px) {
+    .page-container {
+        width: 90%;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+}
+
+/* ===================================================
+   4. NAVBAR
+   =================================================== */
+   /* ===================================================
+   SITE HEADER (Brand Banner)
+   =================================================== */
+
+.site-header {
+    width: 100%;
+    background: var(--accent);
+    border-bottom: 4px solid var(--primary);
+    padding: 1rem 0;
+    color:var(--secondary);
+}
+
+.site-header-inner {
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.site-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color:var(--secondary);
+    margin: 0;
+}
+.custom-nav {
+    width: 100%;
+    background: var(--bg-nav);
+    border-bottom: 4px solid var(--accent);
+}
+
+.nav-inner {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;   /* stack brand + links */
+    align-items: center;      /* center horizontally */
+    gap: 0.5rem;              /* spacing between brand and links */
+}
+
+.nav-links a {
+    margin-left: 1.2rem;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* ===================================================
+   5. FOOTER
+   =================================================== */
+.custom-footer {
+    width: 100%;
+    background: var(--bg-footer);
+    color: var(--secondary);
+    border-top: 4px solid var(--bg-nav);
+    margin-top: auto;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+/* ===================================================
+   6. BUTTONS (THEME-AWARE)
+   =================================================== */
+/* ===================================================
+   GLOBAL BUTTONS (BAKERY THEME)
+   =================================================== */
+
+/* Base button */
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-radius: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+/* Primary = Golden Crust */
+.btn-primary {
+    background: var(--accent);
+    color: var(--secondary);
+}
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+/* Secondary = Cream */
+.btn-secondary {
+    background: var(--primary);
+    color: var(--accent);
+    border: 1px solid var(--border-light);
+}
+.btn-secondary:hover {
+    background: var(--secondary-hover);
+}
+
+/* Danger = Berry Jam Red */
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+.btn-danger:hover {
+    background: var(--danger-hover);
+}
+
+/* Small buttons */
+.btn-small {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: 4px;
+}
+/* ===================================================
+   GLOBAL LINKS
+   =================================================== */
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===================================================
+   7. RECIPE PAGE (MERGED FROM OLD FILES)
+   =================================================== */
+
+/* Recipe card container */
+.recipe-container {
+    background: var(--secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Title + description */
+.recipe-description {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+
+.recipe-date {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+/* Photo gallery */
+.recipe-photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.recipe-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+}
+
+/* Ingredients & instructions */
+.ingredient-list li,
+.instruction-list li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+/* Comments */
+.comments-container {
+    padding-top: 0.5rem;
+}
+
+
+/* Sub navigation */
+.sub-nav {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+/* ===================================================
+   8. PRINT MODE (PDF-FRIENDLY)
+   =================================================== */
+@media print {
+    .sub-nav,
+    .comments-container,
+    nav,
+    footer {
+        display: none !important;
+    }
+
+    .recipe-container {
+        box-shadow: none;
+        border-radius: 0;
+        width: 100%;
+    }
+}
+
+
+/* Header */
+.recipe-header {
+    margin-bottom: 2rem;
+}
+
+.recipe-title {
+    margin-bottom: 0.5rem;
+}
+
+.recipe-meta {
+    display: flex;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+}
+
+.meta-item strong {
+    color: var(--text-main);
+}
+
+/* Section wrapper */
+.recipe-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    margin-bottom: 0.8rem;
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 0.3rem;
+}
+
+/* Photo gallery */
+.recipe-photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.recipe-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+}
+
+/* Comments */
+.comment {
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* Hide Django ClearableFileInput text everywhere */
+.clearable-file-input,
+.clearable-file-input * {
+    display: none !important;
+}
+
+/* Hide "Currently:" and "Change:" even when Django doesn't wrap them */
+.photo-card label {
+    position: relative;
+}
+
+.photo-card label > span,
+.photo-card label > a,
+.photo-card label > small {
+    display: none !important;
+}
+
+/* ===================================================
+   UNIVERSAL FORM SYSTEM — base.css
+   =================================================== */
+
+/* Form container */
+form {
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* Section titles inside forms */
+form h2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: large;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+/* Form groups */
+.form-group {
+    margin-bottom: 12px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    display: block;
+}
+
+/* Universal input/select/textarea styling */
+.form-group input,
+.form-group textarea,
+.form-group select,
+textarea {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--secondary-light);
+    color: var(--text);
+    box-sizing: border-box;
+}
+
+/* Textarea universal behavior */
+textarea,
+.form-group textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Checkbox alignment */
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 6px;
+}
+
+
+/* -===============dDARK-MODE VARIABLES PUT EVERYTHING ABOVE====================*/
+@media (prefers-color-scheme: dark) {
+    :root {
+        --secondary: #E8B86D;        /* Golden Crust */
+        --secondary-hover: #d9a85f;
+
+        --primary: #3a221c;        /* Warm Cream */
+        --primary-hover:#4A2C2A;
+        --bg-main: #1e1e1e;
+        --bg-card:#4A2C2A;
+        --bg-nav: #3a2a1f;
+        --bg-footer: #111;
+
+        --text-main: #f5f5f5;
+        --text-muted: #bbb;
+
+        --border-light: #444;
+
+        --accent:  #111;
+    }
+
+        
+    }
+
+    @media (prefers-color-scheme: dark) {
+        
+        html,
+        body {
+            background:var(--primary-hover);
+            color:var(--text-main);
+        }
+
+        .page-container {
+            background: var(--primary);
+            color: var(--text-main);
+        }
+
+        .site-header,
+        .custom-footer {
+            background:var(--bg-main);
+            color:var(--secondary)
+        }
+
+        .site-title {
+            color:var(--secondary)
+        }
+
+        .custom-nav {
+            background: var(--primary);
+            color:var(--secondary);
+        }
+
+        .nav-links {
+            color:var(--secondary);
+        }
+
+        a:not(.btn),
+        a:not(.btn):visited,
+        a:not(.btn):active {
+            color: var(--secondary) !important;
+        }
+
+        a:not(.btn):hover {
+            color:var(--text-main) !important;
+        }
+
+        .btn-primary{
+            background: var(--secondary);
+            color: var(--accent);
+            border: 1px solid var(--border-light);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            color:var(--secondary);
+        }
+
+        .btn-secondary {
+            background: var(--accent);
+            color: var(--secondary);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-hover);
+            color:var(--accent)
+        }
+
+        .form-group textarea,
+        .form-group input,
+        .form-group select,
+        .form-group input[type=checkbox] {
+            background: var(--primary-hover);
+            color:var(--text-main);
+        }
+    }
+
+/* -===============dDARK-MODE VARIABLES PUT EVERYTHING ABOVE====================*/

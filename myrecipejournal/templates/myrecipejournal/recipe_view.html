@@ -1,0 +1,108 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}
+ {{ recipe.title }} 
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/base.css' %}">
+
+
+
+<div>
+    
+    <h1 class="recipe-title">{{ recipe.title }}</h1>   
+    <p class="recipe-description">
+        <a href="{% url 'profile' %}">
+            <strong>by {{ recipe.owner.username}} </strong>
+        </a>
+        {{ recipe.description }}
+    </p>
+
+    <div class="recipe-meta">
+        <span> Cook time: <strong>{{ recipe.cook_time }}</strong></span>
+        <span>Serves:<strong>{{ recipe.serves}}</strong></span>
+        <span>created on {{ recipe.created_at|date:"M d, Y" }}</span>
+
+    </div>
+    
+        
+    <section class="recipe-section" >
+        <h2 class="section-title">Photos</h2>
+        <div class="recipe-photo-gallery">
+            {% for photo in photos %}
+
+                <img src="{{ photo.image.url }}" class="recipe-photo">
+            {% empty %}
+                <p>No photos yet</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="recipe-section ingredient-container">
+        <h2 class="section-title">Ingredients</h2>
+        <ul class="ingredient-list">
+            {% for ingredient in ingredients %}
+                <li>{{ingredient.quantity}} {{ ingredient.unit}} {{ingredient.name}} </li>
+            {% empty %}
+                <li>No ingredients added yet</li>
+            {% endfor %}
+        </ul>         
+    </section>
+
+    <section class="recipe-section instruction-container">
+        <h2 class="section-title">Instructions</h2>
+        <ol class="instruction-list">
+            {% for instruction in instructions %}
+                <li>{{instruction.description}}</li>
+            {% empty %}
+                <li>No instructions yet</li>
+            {% endfor %}
+     </section>
+    
+    <section class="recipe-section">
+        <nav class="sub-nav">
+            {% if is_owner %}
+                <a href="{% url 'recipe_edit' recipe.pk %}" class="btn btn-primary">Edit</a>   
+                <a href="{% url 'recipe_delete' recipe.pk %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+            <a href="{% url 'recipe_print_pdf' recipe.pk %}" class="btn btn-primary">PDF</a>
+            <a href="{% url 'recipe_list' %}" class="btn btn-secondary">Recipes</a>
+        </nav>
+    
+    </section>
+    
+    
+   
+    
+
+    <section class="comments-container">
+        <h4 class="section-title">Comments</h4>
+        {% for comment in comments%}
+            <div class="comment">
+                <strong>{{comment.profile.user.username}}</strong>
+                <small>{{ comment.created_at|date:"d M, Y"}}</small>
+                <p>{{comment.comment}}</p>
+            </div>
+        {% empty %}
+            <p>No comments yet</p>
+        {% endfor %}
+
+        <form method="post" >
+            {% csrf_token %}
+            <div class="form-group">
+                {{ comment_form.comment }}
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+
+    </div>
+
+
+
+</div>
+
+
+
+{% endblock %}

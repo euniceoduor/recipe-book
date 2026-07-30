@@ -1,0 +1,91 @@
+{% extends './base.html' %}
+{% block title %}
+
+{{ form.instance.pk|yesno:"Edit Recipe,Add Recipe" }}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="'container mt-4">
+    <h1>{{ form.instance.pk|yesno:"Edit Recipe,Add Recipe" }}</h1>
+    
+    <form method="post" class="card p-4 shadow-sm" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <h3>Ingredients</h3>
+        {{ingredient_formset.management_form}}
+        {% for form in ingredient_formset %}
+            <div class="form-row">
+                {{form.name}}
+                {{form.quantity}}
+                {{form.unit}}
+                
+            </div>
+            
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" onclick="addForm('ingredient')">+ Add another ingredient</button>
+
+        <h3>Instructions</h3>
+        {{instruction_formset.management_form}}
+        {% for form in instruction_formset %}
+            <div class="form-row">
+                {{form.step_number}}
+                {{form.description}}
+            </div>
+
+        {% endfor %}
+        <button type="button" onclick="addForm('instruction')"> + Add another instruction</button>
+
+        <h3>Photos</h3>
+        {{photo_formset.management_form}}
+        {% for form in photo_formset %}
+            <div class = "form-row">
+                {{form.as_p}}
+            </div>
+        {% endfor %}
+        <button type="button" onclick="addForm('photo')"> + Add another photo</button>
+    
+    <button type="submit" class="btn btn-primary">Save Recipe</button>
+    <a href="{% url 'recipe_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+
+<!--Let's run a Javascript to add another ingredient, photo and instruction without leaving the page-->
+
+<script>
+    function addForm(prefix) {
+    //Get hidden form
+    let totalForms = document.querySelector(`#id_${prefix}-TOTAL_FORMS`);
+    let formCount = parseInt(totalForms.value);
+    //Get container holding all forms for this formset
+    let formContainer = document.getElementById(`${prefix}-forms`);
+    //Clone the first form in the container
+    let newForm = formContainer.children[0].cloneNode(true);
+
+    // Clear input values
+    newForm.querySelectorAll('input, textarea').forEach(input => {
+        input.value = '';
+    });
+
+    // Update form index in attributes
+    newForm.innerHTML = newForm.innerHTML.replaceAll(`-${formCount-1}-`, `-${formCount}-`);
+    formContainer.appendChild(newForm);
+
+    totalForms.value = formCount + 1;
+}
+</script>
+
+</div>
+
+<style>
+    .form-row {
+        display:flex;
+        gap: 10px;
+        align-items:left;
+        margin-bottom: 8px;
+
+    }
+</style>
+{% endblock %}

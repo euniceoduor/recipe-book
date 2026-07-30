@@ -1,0 +1,180 @@
+/*Create and edit css form */
+/* form layout*/
+form {
+    
+    margin: auto;
+    padding: 20px 0;
+}
+ form h2{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: large;
+    border-bottom: 1px solid #dddd;
+    padding-bottom: 5px;
+ }
+
+ /* Recipe details */
+ .recipe_details {
+    margin-bottom: 30px
+ }
+
+
+/*Photo Formset*/
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 5px;              /* space between photos */
+    margin-bottom: 20px;
+}
+
+.photo-card {
+    background: var(--secondary-light);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    box-sizing: border-box;
+    color:var(--text-main);
+}
+
+.photo-card input[type="file"] {
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.photo-card form,
+.photo-card {
+    min-width: 0;
+}
+
+.photo-card .current-filepath {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+.photo-thumb {
+    width: 150px !important;
+    height: 150px !important;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.empty-photo {
+    width: 150px;
+    height: 150px;
+    background: #eee;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Hide Django ClearableFileInput junk */
+.photo-click input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+
+.clearable-file-input,
+.clearable-file-input * {
+    display: none !important;
+}
+
+/*Ingredient and instructions */
+.form-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.form-row input,
+.form-row textarea {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 80px;
+}
+
+.instruction-row{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items:flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: nowrap;
+}
+
+.step-box{
+    flex: 0 0 auto;
+}
+.step-box input{
+    width: 40px;
+    padding: 6px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.instruction-text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.instruction-text textarea{
+    width: 100%;
+    max-width: 100%;
+    min-width: 0%;
+    height: 70px;
+    resize: vertical;
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="checkbox"][name$="-DELETE"] {
+    display: none;
+}
+
+.instruction-row .btn-danger{
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+.photo-click {
+    display: block;
+    position: relative;
+}
+
+.photo-click input[type="file"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+    .photo-card {
+        background:var(--primary-hover);
+        
+    }
+}
+

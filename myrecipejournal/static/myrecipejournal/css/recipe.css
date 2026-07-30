@@ -1,0 +1,61 @@
+/*Recipe view css*/
+
+.sub-nav {
+    width: 100%;
+    background-color:none;
+    display: flex;
+    padding: 0.6 rem 0;
+    margin-bottom: 1 rem;
+    display: flex;
+    justify-content: flex-start;
+    gap:10px;
+    align-items: right;
+}
+
+.sub-nav form {
+    display: inline;
+}
+
+
+.recipe-container {
+    margin: auto;
+}
+
+.recipe-description {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.recipe-date {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.recipe-photo-gallery {
+    display: flex;
+    gap: 15px;
+    flex-wrap:nowrap;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+
+.recipe-photo{
+    flex: 0 0 auto;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+.ingredient-list li,
+.instruction-list li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.comments-container {
+    padding-top: 0.5rem;
+}
+

@@ -1,0 +1,52 @@
+.about-container{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto; /*centers container*/
+    gap: 2rem; /*space between sections*/
+    flex-direction: column;
+    padding: 2rem 0;
+
+}
+
+.about-top {
+    display:flex;
+    gap: 2rem; /*space btw photo and text*/
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.photo-section {
+    flex:1;
+
+}
+
+.about-photo {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+.about-text {
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    font-size: 1rem;
+    line-height: 1.6;
+    justify-content: center;
+}
+
+
+
+.about-desc{
+    width: 100%;
+    flex:none;
+    font-size: 1rem;
+}
+
+@media(max-width: 900px) {
+    .about-top {
+        flex-direction: column;/*stack photo + text vertically */
+    }
+}

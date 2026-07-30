@@ -1,0 +1,62 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/profile.css' %}">
+
+
+<div class="profile-page">
+   
+    <form method="post" enctype="multipart/form-data" class="profile-form">
+        {% csrf_token %}
+        
+
+            <div class="profile-photo-section">
+                {% if profile.profile_picture %}
+                    <img src= "{{ profile.profile_picture.url }}" class="profile-photo"/>
+                {% else %}
+                    <img src="{% static 'myrecipejournal/default_profile.webp' %}" class="profile-photo">
+                {% endif %}
+                
+                <div>
+                    {{ form.profile_picture}}
+                </div>
+                
+            </div>
+            <br>
+            
+            <!--Name + Username-->
+            <div>
+                <div class="form-group profile-name-row">
+                    {{form.first_name}}
+                    {{ form.last_name}}
+                    
+                </div>
+                <p>Username: @{{profile.user.username}}</p>
+                <!--Privacy-->
+                <p>Private account: {{ form.is_private }} </p>
+            </div>
+            
+
+            <!--Bio-->
+            
+            <div class="form-group">
+                <h4>Bio</h4>
+                {{ form.bio }}
+            </div>
+            
+
+
+            <p>
+                <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary"> Save Profile</button>
+
+            </p>
+        
+    </form>
+
+</div>
+
+
+{% endblock %}

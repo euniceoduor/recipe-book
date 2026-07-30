@@ -1,0 +1,225 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}
+ {{ form.title.value|default:"New Recipe" }} 
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/recipe_create_edit.css' %}">
+
+<div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="recipe_details">
+            <div class="form-group">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+            </div>
+
+            <div class="form-group">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+            </div>
+
+            <div class="form-group">
+                {{ form.cook_time.label_tag }}
+                {{ form.cook_time }}
+            </div>
+
+            <div class="form-group">
+                {{ form.serves.label_tag }}
+                {{ form.serves }}
+            </div>
+
+            <div class="form-group">
+                {{ form.is_private.label_tag }}
+                {{ form.is_private }}
+            </div>
+
+            {% if recipe %}
+                <p>Created on {{ recipe.created_at|date:"M d, Y" }}</p>
+            {% endif %}
+
+        </div>
+
+        <div>
+            <h2>Photos</h2>
+                
+            {{photo_formset.management_form}}
+            <div id ="photo-forms" class="photo-gallery">
+                {% for form in photo_formset %}
+
+                    <div class = "photo-card" >
+                        
+                        <div class="photo-preview">
+                            {% if form.instance.pk and form.instance.image %}
+                                <img src="{{ form.instance.image.url }}" class = "photo-thumb">
+                            {% else %}
+                                <div class="empty-photo">Add Photo</div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="photo-input">
+                            {{ form.image }}
+                        </div>
+
+                        <button type="button" class="btn btn-danger">x</button>
+
+                        {{form.id}}
+                        {{form.DELETE}}
+                        
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div id = "empty-photo-form" style="display:none;">
+                <div class = "photo-card">
+                    <label class="photo-click">
+                        <div class="empty-photo">Add Photo</div>
+                        {{photo_formset.empty_form.image}}
+                    </label>
+
+                    <button type="button" class=" btn btn-danger">x</button>
+                    {{photo_formset.empty_form.id}}
+                    {{photo_formset.empty_form.DELETE}}
+                </div>
+                
+            </div>
+                
+            <button type="button" id="add-photo-btn" class="btn btn-secondary">+ Add photo</button>
+            <button type="submit" name="save_photos" class="btn btn-primary">Save Photos</button>
+
+        </div>
+
+        <div>
+            <h2>Ingredients</h2>
+            {{ingredient_formset.management_form}}
+
+            <div id="ingredient-forms" >
+                {% for form in ingredient_formset %}
+                    <div class = "form-row">
+                        {{form.id}}
+                        {{form.name}}
+                        {{form.quantity}}
+                        {{form.unit}}
+                        {{form.DELETE}}
+                        <button type="button" class="btn btn-danger">x</button>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div id = "empty-ingredient-form" style="display:none;">
+                <div class = "form-row">
+                    {{ingredient_formset.empty_form.id}}
+                    {{ingredient_formset.empty_form.name}}
+                    {{ingredient_formset.empty_form.quantity}}
+                    {{ingredient_formset.empty_form.unit}}
+                    {{ingredient_formset.empty_form.DELETE}}
+                </div>    
+                            
+            </div>
+            
+            <button type="button" id="add-ingredient-btn" class="btn btn-secondary">+ Add ingredient</button>
+            <button type="submit" name="save_ingredients" class="btn btn-primary">Save Ingredients</button>  
+        </div>
+
+        <div>
+            <h2>Instructions</h2>
+        
+            {{instruction_formset.management_form}}
+
+            <div id="instruction-forms">
+                {% for form in instruction_formset %}
+                <div class = "form-row">
+                    {{ form.id }}
+                    <div class = "step-box">
+                        {{ form.step_number}}
+                    </div>
+                    <div class="instruction-text">
+                        {{ form.description }}
+                    </div>
+                    
+                    {{ form.DELETE }}
+                    <button type="button" class="btn btn-danger">x</button>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div id = "empty-instruction-form" style="display:none;">
+                <div class="form-row">
+                    {{ instruction_formset.empty_form.form_id}}
+                    <div class="step-box">
+                        {{instruction_formset.empty_form.step_number}}
+                    </div>
+                    <div class="instruction-text">
+                        {{instruction_formset.empty_form.description}}
+                    </div>
+                    
+                    {{instruction_formset.empty_form.DELETE}}
+                </div>
+            </div>
+            
+            <button type="button" id="add-instruction-btn" class="btn btn-secondary">+ Add step</button>
+            <button type="submit" name="save_instructions" class="btn btn-primary">Save Instructions</button> 
+
+        </div>
+    
+        <div>
+            <h2>Manage</h2>
+            
+        
+            {% if recipe %}  
+                <a href="{% url 'recipe_view' recipe.pk %}" class="btn btn-secondary">Cancel changes</a>    
+            {% else %}
+                <a href="{% url 'recipe_list' %}" class="btn btn-secondary">Cancel</a>
+            {% endif %}
+            <button type="submit" name="save_all" class="btn btn-primary">Save recipe</button>
+
+        </div>
+
+        
+
+        
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                function setupDynamicFormset(addBtnId, formsContainerId, emptyFormId, totalFormsSelector) {
+                    let container = document.getElementById(formsContainerId);
+                    let addBtn = document.getElementById(addBtnId);
+                    let totalForms = document.querySelector(totalFormsSelector);
+                    let emptyFormTemplate = document.getElementById(emptyFormId).innerHTML;
+
+                    addBtn.addEventListener("click", function () {
+                        let formCount = parseInt(totalForms.value);
+                        let newFormHtml = emptyFormTemplate.replace(/__prefix__/g, formCount);
+                        container.insertAdjacentHTML('beforeend', newFormHtml);
+                        totalForms.value = formCount + 1;
+                    });
+                }
+
+                // Setup for each formset
+                setupDynamicFormset("add-photo-btn", "photo-forms", "empty-photo-form", "#id_photos-TOTAL_FORMS");
+                setupDynamicFormset("add-ingredient-btn", "ingredient-forms", "empty-ingredient-form", "#id_ingredients-TOTAL_FORMS");
+                setupDynamicFormset("add-instruction-btn", "instruction-forms", "empty-instruction-form", "#id_instructions-TOTAL_FORMS");
+            
+            });
+
+            document.addEventListener("click", function (e) {
+                if (e.target.classList.contains("btn btn-danger")) {
+                    const row = e.target.closest(".form-row, .photo-card");
+                    const deleteCheckbox = row.querySelector("input[type='checkbox'][name$='-DELETE']");
+                    deleteCheckbox.checked = true;
+                    row.style.display = "none";
+                }
+            })
+
+        </script>
+    
+        
+    </form>
+</div>
+
+
+{% endblock %}
