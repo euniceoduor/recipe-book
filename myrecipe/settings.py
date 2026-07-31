@@ -28,6 +28,12 @@ SECRET_KEY = 'django-insecure-6i47ykwu!8zy%vg!8kuu=skq&(3d&^p2v7xvb$3-i##7g5l73u
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://lemon-drizzle.up.railway.app",
+]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 
 # Application definition
