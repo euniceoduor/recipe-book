@@ -31,6 +31,7 @@ from django.contrib.staticfiles import finders
 
 
 from pathlib import Path
+from django.conf import settings
 
 #SIGNUP
 class CustomUserCreationForm(UserCreationForm):
@@ -378,6 +379,8 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
             photo_formset.instance = recipe
             photo_formset.save()
+
+            print("MEDIA_ROOT:", settings.MEDIA_ROOT)
 
             #Go to print view after creating
             return redirect('recipe_view', pk = recipe.pk)

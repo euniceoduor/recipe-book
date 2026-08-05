@@ -50,14 +50,16 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    #whitenoise required for railway
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    #whitenoise required for railway
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'myrecipe.urls'
@@ -157,3 +159,9 @@ LOGIN_REDIRECT_URL = 'recipe_list'  # where to go after login
 import os
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/media'
+
+if not DEBUG:
+    WHITENOISE_AUTOREFRESH = True
+    WHITENOISE_SKIP_COMPRESS = True
+    WHITENOISE_SKIP_HASHING = True
+    WHITENOISE_IGNORE_MEDIA = True
