@@ -18,13 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from myrecipejournal.views import debug_media
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('myrecipejournal.urls')),
+    path('debug/media/<str:filename>/', debug_media),
 ] 
+
 # Serve media files during development using static above.
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

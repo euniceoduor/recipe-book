@@ -33,6 +33,11 @@ from django.contrib.staticfiles import finders
 from pathlib import Path
 from django.conf import settings
 
+#for debugging:
+from django.http import FileResponse, Http404
+from django.conf import settings
+import os
+
 #SIGNUP
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -169,19 +174,19 @@ def delete_ingredient(request, ingredient_id):
 def user_is_recipe_owner(user, recipe):
     return recipe.owner == user
 
+
+def debug_media(request, filename):
+    path = os.path.join(settings.MEDIA_ROOT, 'recipe_photos', filename)
+    if os.path.exists(path):
+        return FileResponse(open(path, 'rb'))
+    raise Http404(f"File not found at: {path}")
+
 #View cute version of recipe
 class RecipePrintView(DetailView):
     model= Recipe
     context_object_name = 'recipe'
     template_name = 'myrecipejournal/recipe_view.html'
 
-    
-
-    test_path = Path(settings.MEDIA_ROOT) / "test.txt"
-    with open(test_path, "w") as f:
-        f.write("hello railway")
-
-    print("Wrote test file:", test_path)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
