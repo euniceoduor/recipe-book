@@ -158,7 +158,9 @@ LOGIN_REDIRECT_URL = 'recipe_list'  # where to go after login
 
 import os
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/media'
+MEDIA_ROOT = '/app/media'
+
+
 
 if not DEBUG:
     WHITENOISE_AUTOREFRESH = True

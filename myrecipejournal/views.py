@@ -175,6 +175,14 @@ class RecipePrintView(DetailView):
     context_object_name = 'recipe'
     template_name = 'myrecipejournal/recipe_view.html'
 
+    
+
+    test_path = Path(settings.MEDIA_ROOT) / "test.txt"
+    with open(test_path, "w") as f:
+        f.write("hello railway")
+
+    print("Wrote test file:", test_path)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         recipe = self.get_object()
@@ -380,7 +388,6 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
             photo_formset.instance = recipe
             photo_formset.save()
 
-            print("MEDIA_ROOT:", settings.MEDIA_ROOT)
 
             #Go to print view after creating
             return redirect('recipe_view', pk = recipe.pk)
