@@ -50,6 +50,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    #whitenoise required for railway
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,8 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    #whitenoise required for railway
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    
 ]
 
 ROOT_URLCONF = 'myrecipe.urls'
@@ -166,4 +167,3 @@ if not DEBUG:
     WHITENOISE_AUTOREFRESH = True
     WHITENOISE_SKIP_COMPRESS = True
     WHITENOISE_SKIP_HASHING = True
-    WHITENOISE_IGNORE_MEDIA = True

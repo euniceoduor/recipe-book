@@ -407,7 +407,7 @@ textarea {
 /* Textarea universal behavior */
 textarea,
 .form-group textarea {
-    min-height: 40px;
+    height: 40px;
     resize: vertical;
 }
 
