@@ -175,12 +175,6 @@ def user_is_recipe_owner(user, recipe):
     return recipe.owner == user
 
 
-def debug_media(request, filename):
-    path = os.path.join(settings.MEDIA_ROOT, 'recipe_photos', filename)
-    if os.path.exists(path):
-        return FileResponse(open(path, 'rb'))
-    raise Http404(f"File not found at: {path}")
-
 #View cute version of recipe
 class RecipePrintView(DetailView):
     model= Recipe
