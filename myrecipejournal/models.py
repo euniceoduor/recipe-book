@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 
 from urllib.parse import urljoin
 from pathlib import Path
+from myrecipejournal.data import MEASUREMENTS
+from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 # Create your models here.
 class Profile(models.Model):
@@ -43,8 +46,10 @@ class Recipe(models.Model):
 class Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe, related_name='ingredients', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    quantity = models.CharField(max_length=10, blank=True)
-    unit =  models.CharField(max_length=10,blank = True)
+    quantity = models.DecimalField(max_digits=6, decimal_places = 2, null=True, blank=True,
+                                    validators = [MinValueValidator(Decimal("0.00"))]
+                                   )
+    unit =  models.CharField(max_length=12,blank = True,choices = MEASUREMENTS, default="")
     def __str__(self):
         return f"{self.quantity} {self.unit} {self.name}"
     

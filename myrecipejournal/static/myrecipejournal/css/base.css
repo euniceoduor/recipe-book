@@ -407,7 +407,7 @@ textarea {
 /* Textarea universal behavior */
 textarea,
 .form-group textarea {
-    height: 40px;
+    min-height: 40px;
     resize: vertical;
 }
 
@@ -514,3 +514,52 @@ textarea,
     }
 
 /* -===============dDARK-MODE VARIABLES PUT EVERYTHING ABOVE====================*/
+
+
+/* 🔶 Hide hamburger on desktop */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* 🔶 Sidebar base */
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* hidden by default */
+    width: 250px;
+    height: 100%;
+    background: var(--secondary-light);
+    box-shadow: -2px 0 6px rgba(0,0,0,0.2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: right 0.3s ease;
+    z-index: 9999;
+}
+
+/* 🔶 Sidebar visible */
+.mobile-sidebar.open {
+    right: 0;
+}
+
+/* 🔶 MOBILE RULES */
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* Hide About/Profile/Login/Logout in navbar */
+    .nav-links a[href$="about"],
+    .nav-links a[href$="profile"],
+    .nav-links a[href$="login"],
+    .nav-links a[href$="logout"] {
+        display: none;
+    }
+}

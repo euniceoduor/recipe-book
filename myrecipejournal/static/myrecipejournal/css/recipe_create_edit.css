@@ -101,9 +101,11 @@ form {
     gap: 10px;
     align-items: center;
     margin-bottom: 8px;
+    box-sizing: border-box;
 }
 
 .form-row input,
+.form-row select,
 .form-row textarea {
     padding: 6px 8px;
     font-size: 0.9rem;
@@ -134,6 +136,7 @@ form {
 .instruction-text {
     flex: 1 1 auto;
     min-width: 0;
+    height:70px;
 }
 
 .instruction-text textarea{
@@ -178,3 +181,67 @@ input[type="checkbox"][name$="-DELETE"] {
     }
 }
 
+
+textarea[name="description"] {
+    min-height: 80px;
+}
+
+/* 🔶 MOBILE FIXES */
+@media (max-width: 600px) {
+
+    form {
+        padding: 10px 12px;
+    }
+
+    /* Ingredient rows */
+    .form-row {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .form-row input,
+    .form-row select {
+        flex: 1 1 45%;
+        min-width: 120px;
+    }
+
+    /* Instruction rows */
+    .instruction-row {
+        flex-wrap: wrap;
+    }
+
+    .step-box {
+        flex: 0 0 50px;
+    }
+
+    .instruction-text {
+        flex: 1 1 100%;
+    }
+
+    .instruction-text textarea {
+        height: 120px;
+    }
+
+    /* Description textarea */
+    textarea[name="description"] {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    /* Photos */
+    .photo-thumb,
+    .empty-photo {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    /* Delete buttons */
+    .form-row .btn-danger {
+        padding: 4px 8px;
+        font-size: 0.8rem;
+    }
+}

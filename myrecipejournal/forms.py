@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Recipe, Ingredient, InstructionsStep, RecipePhoto, Comment, Profile
 from django.forms import inlineformset_factory
+from myrecipejournal.data import MEASUREMENTS
 
 class RecipeForm(forms.ModelForm):
     class Meta:
@@ -22,8 +23,8 @@ class IngredientForm(forms.ModelForm):
 
         widgets = {
             "name": forms.TextInput(attrs={"placeholder":"e.g. Sugar"}),
-            "quantity": forms.TextInput(attrs={"placeholder": "e.g. 1"}),
-            "unit": forms.TextInput(attrs={"placeholder": "e.g. cup"}),
+            "quantity": forms.NumberInput(attrs={"placeholder": "e.g. 1.50", "step":"0.01"}),
+            "unit": forms.Select(choices= MEASUREMENTS)
         }
 
 IngredientFormSet =inlineformset_factory(
@@ -43,7 +44,8 @@ class RecipePhotoForm(forms.ModelForm):
         fields = ['image']
         widgets = {
                 'image': forms.ClearableFileInput(attrs = {
-                    'accept':'image/*;capture=camera',
+                    'accept':'image/*',
+                    'multiple':False,
                 })
         }
 
