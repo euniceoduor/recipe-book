@@ -37,8 +37,20 @@ InstructionFormSet = inlineformset_factory(
     can_delete = True
 )
 
+class RecipePhotoForm(forms.ModelForm):
+    class Meta:
+        model = RecipePhoto
+        fields = ['image']
+        widgets = {
+                'image': forms.ClearableFileInput(attrs = {
+                    'accept':'image/*',
+                    'capture':'environment'
+                })
+        }
+
 PhotoFormSet = inlineformset_factory(
     Recipe, RecipePhoto,
+    form=RecipePhotoForm,
     fields = ['image'], extra = 0,
     can_delete= True
 )
