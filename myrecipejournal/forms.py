@@ -44,7 +44,6 @@ class RecipePhotoForm(forms.ModelForm):
         widgets = {
                 'image': forms.ClearableFileInput(attrs = {
                     'accept':'image/*',
-                    'capture':'environment'
                 })
         }
 
