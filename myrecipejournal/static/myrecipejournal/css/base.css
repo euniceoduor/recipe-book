@@ -28,6 +28,7 @@
     --text-muted: #777;
 
     /* Borders */
+    --border: #d4c9b8; 
     --border-light: #eee;
 }
 
@@ -56,11 +57,31 @@ html, body {
     max-width: 800px;
     margin: 20px auto;
 }
+/* ===================================================
+   GLOBAL LINKS
+   =================================================== */
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
 
 .nav-links {
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+.nav-links a {
+    margin-left: 1.2rem;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.nav-links a:hover{
+    color:var(--accent);
 }
 
 /* Mobile responsiveness */
@@ -109,14 +130,6 @@ html, body {
     border-bottom: 4px solid var(--accent);
     
 }
-.custom-nav a {
-    color: var(--text-main);
-    
-}
-
-.custom-nav a:hover {
-    color:var(--accent);
-}
 
 .nav-inner {
     width: 100%;
@@ -127,16 +140,8 @@ html, body {
     gap: 0.5rem;              /* spacing between brand and links */
 }
 
-.nav-links a {
-    margin-left: 1.2rem;
-    text-decoration: none;
-    color: var(--text-main);
-    font-weight: 500;
-}
 
-.nav-links a:hover {
-    color: var(--accent);
-}
+
 
 /* ===================================================
    5. FOOTER
@@ -178,6 +183,7 @@ html, body {
 }
 .btn-primary:hover {
     background: var(--primary-hover);
+    color:var(--accent);
 }
 
 /* Secondary = Cream */
@@ -187,7 +193,8 @@ html, body {
     border: 1px solid var(--border-light);
 }
 .btn-secondary:hover {
-    background: var(--secondary-hover);
+    background: var(--accent);
+    color:var(--secondary);
 }
 
 /* Danger = Berry Jam Red */
@@ -205,18 +212,8 @@ html, body {
     font-size: 0.8rem;
     border-radius: 4px;
 }
-/* ===================================================
-   GLOBAL LINKS
-   =================================================== */
 
-a {
-    color: var(--accent);
-    text-decoration: none;
-}
 
-a:hover {
-    text-decoration: underline;
-}
 
 /* ===================================================
    7. RECIPE PAGE (MERGED FROM OLD FILES)

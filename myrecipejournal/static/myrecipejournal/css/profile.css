@@ -78,9 +78,9 @@
     
 }
 
-.bio textarea {
+.form-group .bio textarea {
     width: 100%;
-    min-height: 180px !important;
+    min-height: 50px !important;
     height: auto !important;
     max-height: none;
     box-sizing: border-box;

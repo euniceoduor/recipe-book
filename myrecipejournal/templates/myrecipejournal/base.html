@@ -15,7 +15,7 @@
         <div class="site-header-inner">
             
                 <a href="{% url 'recipe_list' %}" class="site-title">
-                    Flour & Pals
+                    The Flour Bandit
                 </a>
         
         </div>
@@ -31,12 +31,12 @@
                     {% if logged_in %}
                         <a href="{% url 'my_recipes' %}">My recipes</a>
                     {% endif %}
-                    <a href="{% url 'about' %}">About</a>
+                    
                     <a href="{% url 'post_list' %}">Blog</a>
                     
                     <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
                     <div class="mobile-hidden-links">
-                        
+                        <a href="{% url 'about' %}">About</a>
                         {% if logged_in %}
                             <a href="{%url 'profile' %}">My profile</a>
                         {% endif %}
@@ -75,7 +75,7 @@
     </main>
 
     <footer class="custom-footer">
-        <p>&copy; {{ now|date:"Y" }} flour&pals</p>
+        <p>&copy; {% now "Y" %} theflourbandit</p>
     </footer>
 
     <script>

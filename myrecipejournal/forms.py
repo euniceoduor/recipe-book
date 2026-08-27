@@ -57,6 +57,15 @@ PhotoFormSet = inlineformset_factory(
 )
         
 class ProfileForm(forms.ModelForm):
+
+    username = forms.CharField(
+        max_length=150,
+        required=True,
+        widget=forms.TextInput(attrs={
+            "placeholder": "Username",
+        })
+    )
+     
     class Meta:
         model= Profile
         fields=['first_name', 'last_name', 'profile_picture','bio', 'is_private' ]
@@ -71,7 +80,40 @@ class ProfileForm(forms.ModelForm):
             'bio': forms.TextInput(attrs ={
                 'placeholder':'Tell us what you like to eat, cook, bake, snack and which recipes you will be sharing and enjoying...', 'rows': 3,
             }),
+            'profile_picture': forms.ClearableFileInput(attrs={
+                'accept': 'image/*',
+                'capture': 'environment',   # opens camera first on mobile
+                'multiple': False,
+            }),
         }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        super().__init__(*args, **kwargs)
+
+        # Pre-fill username
+        if self.user:
+            self.fields["username"].initial = self.user.username
+
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        # Prevent duplicate usernames
+        if User.objects.filter(username=username).exclude(pk=self.user.pk).exists():
+            raise forms.ValidationError("This username is already taken.")
+        return username
+
+    def save(self, commit=True):
+        profile = super().save(commit=False)
+
+        # Save username to the User model
+        user = self.user
+        user.username = self.cleaned_data["username"]
+
+        if commit:
+            user.save()
+            profile.save()
+
+        return profile
 
 
 class SignUpForm(UserCreationForm):

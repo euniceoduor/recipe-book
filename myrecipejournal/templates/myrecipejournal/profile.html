@@ -13,7 +13,7 @@
                 {% if profile.profile_picture %}
                     <img src= "{{ profile.profile_picture.url }}" class="profile-photo"/>
                 {% else %}
-                    <img src="{% static 'myrecipejournal/default_profile.webp' %}" class="profile-photo">
+                    <img src="{% static 'myrecipejournal/app_media/default_profile.jpg' %}" class="profile-photo">
                 {% endif %}
             
         
@@ -42,10 +42,12 @@
             <p>{{profile.bio| default:"No bio added yet."}}</p>
         </div>
 
-        {% if is_owner %}
-            <a href= "{% url 'profile_edit' %}" class="btn btn-primary">Edit Profile</a>
-        {% endif %}
+        
     </div>
+
+    {% if is_owner %}
+            <a href= "{% url 'profile_edit' %}" class="btn btn-primary">Edit Profile</a>
+    {% endif %}
 
 </div>
 

@@ -183,7 +183,7 @@ input[type="checkbox"][name$="-DELETE"] {
 
 
 textarea[name="description"] {
-    min-height: 80px;
+    min-height: 40px;
 }
 
 /* 🔶 MOBILE FIXES */

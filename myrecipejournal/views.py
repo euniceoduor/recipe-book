@@ -98,13 +98,13 @@ def profile_edit(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
 
     if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES, instance = profile)
+        form = ProfileForm(request.POST, request.FILES, instance = profile, user = request.user)
         if form.is_valid():
             form.save()
             return redirect("profile")
         
     else:
-        form=ProfileForm(instance=profile)
+        form=ProfileForm(instance=profile, user = request.user)
 
     context = {
         "form": form,
@@ -439,7 +439,7 @@ def post_list(request):
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     post_comments =post.post_comments.order_by("-created_at")
-   
+    is_owner = request.user.is_authenticated and request.user == post.owner
     
     if request.method == "POST":
         form = PostCommentForm(request.POST)
@@ -458,6 +458,7 @@ def post_detail(request, slug):
         "post":post,
         "comment_form": form,
         "post_comments":post_comments,
+        "is_owner": is_owner,
     }
         
         
