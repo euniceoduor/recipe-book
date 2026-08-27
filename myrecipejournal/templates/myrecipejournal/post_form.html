@@ -1,0 +1,21 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}
+ New post
+{% endblock %}
+
+{% block content %}
+<div>
+    <h3>My Flour Story</h3>
+    <form method="post" class="form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.errors }}
+        {{ form.as_p}}
+
+        <button type="submit" class="btn btn-primary">Post</button>
+        <a href="{% url 'post_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{%endblock%}

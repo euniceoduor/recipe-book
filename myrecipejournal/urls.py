@@ -3,7 +3,8 @@ from django.contrib.auth import views as auth_views
 from . import views
 from .views import (
     RecipeListView, RecipeEditView,
-    RecipeCreateView, RecipeDeleteView, RecipePrintView
+    RecipeCreateView, RecipeDeleteView, RecipePrintView,PostCreate, PostEdit,
+    PostDelete
 )
 
 from django.conf import settings
@@ -15,6 +16,13 @@ urlpatterns = [
         template_name='registration/login.html'
     ), name='login'),
     path('logout/', views.logout_view, name="logout"),
+
+    #Posts
+    path('posts/', views.post_list, name="post_list"),
+    path('post/create/', PostCreate.as_view(), name="post_create"),
+    path('post/<slug:slug>/edit/', PostEdit.as_view(), name="post_edit"),
+    path('post/<slug:slug>/delete/', PostDelete.as_view(), name="post_delete"),
+    path('post/<slug:slug>/', views.post_detail, name="post_detail"),
 
     path('', RecipeListView.as_view(), name='recipe_list'),
     path('recipe/<int:pk>/edit/', RecipeEditView.as_view(), name='recipe_edit'),

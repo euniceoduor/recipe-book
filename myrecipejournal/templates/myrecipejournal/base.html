@@ -15,7 +15,7 @@
         <div class="site-header-inner">
             
                 <a href="{% url 'recipe_list' %}" class="site-title">
-                    Lemon Drizzle
+                    Flour & Pals
                 </a>
         
         </div>
@@ -24,31 +24,42 @@
     <nav class="navbar custom-nav">
         <div class="container nav-inner">
 
-                <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                
 
                 <div class="nav-links">
-                    <a href="{% url 'recipe_create' %}">+ new recipe</a>
-                    <a href="{% url 'my_recipes' %}">My recipes</a>
-                    <a href="{% url 'about' %}">About</a>
-                    
-                    <a href="{%url 'profile' %}">My profile</a>
-                    
-
+                    <a href="{% url 'recipe_create' %}">+ New recipe</a>
                     {% if logged_in %}
-                        <a href="{% url 'logout' %}" >Log out</a>
-                    {% else %}
-                        <a href="{% url 'login' %}" >Log in</a>
+                        <a href="{% url 'my_recipes' %}">My recipes</a>
                     {% endif %}
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'post_list' %}">Blog</a>
+                    
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+                    <div class="mobile-hidden-links">
+                        
+                        {% if logged_in %}
+                            <a href="{%url 'profile' %}">My profile</a>
+                        {% endif %}
 
+                        {% if logged_in %}
+                            <a href="{% url 'logout' %}" >Log out</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" >Log in</a>
+                        {% endif %}
+
+                    </div>
+                    
                 </div>
             
         </div>
     </nav>
 
     <div id="mobileSidebar" class="mobile-sidebar">
+        <a href="{% url 'recipe_list' %}">Home</a>
         <a href="{% url 'about' %}">About</a>
-                    
-        <a href="{%url 'profile' %}">Profile</a>
+        {% if logged_in %}            
+            <a href="{%url 'profile' %}">Profile</a>
+        {% endif %}
                     
 
         {% if logged_in %}
@@ -64,7 +75,7 @@
     </main>
 
     <footer class="custom-footer">
-        <p>&copy; {{ now|date:"Y" }} lemondrizzle</p>
+        <p>&copy; {{ now|date:"Y" }} flour&pals</p>
     </footer>
 
     <script>

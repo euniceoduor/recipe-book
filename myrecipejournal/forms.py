@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Recipe, Ingredient, InstructionsStep, RecipePhoto, Comment, Profile
+from .models import Recipe, Ingredient, InstructionsStep, RecipePhoto, Comment, Profile, PostComment
 from django.forms import inlineformset_factory
 from myrecipejournal.data import MEASUREMENTS
 
@@ -84,6 +84,17 @@ class SignUpForm(UserCreationForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model=Comment
+        fields=["comment"]
+        widgets = {
+            "comment": forms.Textarea(attrs= {
+                "rows":2,
+                "placeholder":"Add a comment..."
+            })
+        }
+
+class PostCommentForm(forms.ModelForm):
+    class Meta:
+        model=PostComment
         fields=["comment"]
         widgets = {
             "comment": forms.Textarea(attrs= {

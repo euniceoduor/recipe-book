@@ -57,6 +57,12 @@ html, body {
     margin: 20px auto;
 }
 
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 900px) {
     .page-container {
@@ -101,6 +107,15 @@ html, body {
     width: 100%;
     background: var(--bg-nav);
     border-bottom: 4px solid var(--accent);
+    
+}
+.custom-nav a {
+    color: var(--text-main);
+    
+}
+
+.custom-nav a:hover {
+    color:var(--accent);
 }
 
 .nav-inner {
@@ -523,6 +538,23 @@ textarea,
     border: none;
     font-size: 1.8rem;
     cursor: pointer;
+    position: relative;
+    z-index: 9999;
+    margin-left: auto;
+}
+
+/* MOBILE RULES */
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .mobile-menu-btn {
+        display: block !important;
+    }
+
+    /* Hide the inner div containing About/Profile/Login/Logout */
+    .mobile-hidden-links {
+        display: none !important;
+    }
 }
 
 /* 🔶 Sidebar base */
@@ -532,7 +564,7 @@ textarea,
     right: -250px; /* hidden by default */
     width: 250px;
     height: 100%;
-    background: var(--secondary-light);
+    background: var(--accent);
     box-shadow: -2px 0 6px rgba(0,0,0,0.2);
     padding: 20px;
     display: flex;
@@ -542,24 +574,17 @@ textarea,
     z-index: 9999;
 }
 
+.mobile-sidebar a{
+    color:var(--secondary-light);
+}
+
+.mobile-sidebar a:hover{
+    color:var(--primary);
+}
 /* 🔶 Sidebar visible */
 .mobile-sidebar.open {
     right: 0;
 }
 
-/* 🔶 MOBILE RULES */
-@media (max-width: 768px) {
 
-    /* Show hamburger */
-    .mobile-menu-btn {
-        display: block;
-    }
 
-    /* Hide About/Profile/Login/Logout in navbar */
-    .nav-links a[href$="about"],
-    .nav-links a[href$="profile"],
-    .nav-links a[href$="login"],
-    .nav-links a[href$="logout"] {
-        display: none;
-    }
-}

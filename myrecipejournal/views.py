@@ -19,8 +19,8 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.db.models import Q
 
-from .models import Recipe, RecipePhoto, Ingredient,Profile
-from .forms import ProfileForm, RecipeForm, SignUpForm, IngredientFormSet, InstructionFormSet, PhotoFormSet, CommentForm
+from .models import Recipe, RecipePhoto, Ingredient,Profile, Post
+from .forms import ProfileForm, RecipeForm, SignUpForm, IngredientFormSet, InstructionFormSet, PhotoFormSet, CommentForm, PostCommentForm
 
 #To enable pdfs
 from django.http import HttpResponse
@@ -429,3 +429,64 @@ def delete_photo(request, photo_id):
         return redirect('recipe_edit', pk=photo.recipe.id)
     
     return redirect('recipe_edit', pk=photo.recipe.id)
+
+#==========POSTS=======================================================================
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, "myrecipejournal/post_list.html", {"posts": posts})
+
+
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    post_comments =post.post_comments.order_by("-created_at")
+   
+    
+    if request.method == "POST":
+        form = PostCommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.profile = request.user.profile
+            comment.post = post
+            comment.save()
+
+            return redirect("post_detail", slug=slug)
+    else:
+            form = PostCommentForm()
+
+    context= {
+        "post":post,
+        "comment_form": form,
+        "post_comments":post_comments,
+    }
+        
+        
+    return render(request, "myrecipejournal/post_detail.html", context)
+
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ["title", "image", "sub_title", "paragraph"]
+    template_name = "myrecipejournal/post_form.html"
+    success_url = reverse_lazy('post_list')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
+
+class PostEdit(LoginRequiredMixin, UpdateView):
+    model = Post
+    fields = ["title", "image", "sub_title", "paragraph"]
+    template_name = "myrecipejournal/post_form.html"
+    success_url = reverse_lazy('post_list')
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
+
+class PostDelete(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = "myrecipejournal/post_delete.html"
+    success_url = reverse_lazy('post_list')
+
+
+
+

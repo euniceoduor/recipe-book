@@ -79,4 +79,39 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.profile.user.username} {self.comment}"
-    
+
+class Post(models.Model):
+    owner = models.ForeignKey(User,on_delete=models.CASCADE, related_name='posts')
+    profile= models.ForeignKey(Profile, related_name="post", on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
+    image= models.ImageField(upload_to="post_photos/", blank=True, null=True)
+    sub_title = models.CharField(max_length=200, blank=True, null=True)
+    paragraph = models.TextField(max_length=500)
+    published = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        ordering = ["-published"]
+
+    def __str__(self):
+        return f"{self.title} by {self.profile.first_name} {self.profile.last_name} a.k.a {self.profile.user.username}"
+
+    def save(self,*args,**kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.title)
+
+        super().save(*args, **kwargs)
+
+class PostComment(models.Model):
+    post= models.ForeignKey(Post, related_name="post_comments", on_delete=models.CASCADE)
+    profile= models.ForeignKey(Profile, related_name="post_comments", on_delete=models.CASCADE)
+    comment= models.TextField(max_length=400)
+    created_at= models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+            ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.profile.user.username} {self.comment}"
+             

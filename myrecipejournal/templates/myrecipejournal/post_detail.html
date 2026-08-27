@@ -1,0 +1,66 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block title %}
+ {{ post.title }} 
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/blog.css' %}">
+
+<div class="post_detail_page">
+    <div>
+        <h1 class="post-title">{{post.title}}</h1>
+        
+        {% if post.image %}
+            <div class="post-card-photo">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            </div>
+        {% endif %}
+        <h4 class="post-subtitle">{{ post.sub_title}}</h4>
+
+        <div class="post-card-body">
+            <p>{{post.paragraph}}</p>
+        </div>
+        
+        <small class="post-meta">Published {{ post.published| date:"j M Y"}} by <strong>{{post.owner.username}}</strong></small>
+        
+        <div class="post-actions">
+            <a href="{% url 'post_edit' post.slug %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'post_delete' post.slug %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+
+
+    <section class="post-comments">
+            <h4 class="post-comments-title">Comments</h4>
+            <div class="comments-list">
+                {% for comment in post_comments%}
+                <div class="comment">
+                    <div class="comment-header">
+                        <strong>{{comment.profile.user.username}}</strong>
+                        <small>{{ comment.created_at|date:"d M, Y"}}</small>
+                    </div>
+                    
+                    <p class="comment-text">{{comment.comment}}</p>
+                </div>
+            {% empty %}
+                <p>No comments yet</p>
+            {% endfor %}
+            </div>
+            
+
+            <form method="post" >
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ comment_form.comment }}
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+
+        </section>
+
+</div>
+
+
+{% endblock %}

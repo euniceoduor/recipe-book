@@ -1,0 +1,51 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'myrecipejournal/css/blog.css' %}">
+
+<div class="posts-page">
+    <h1>Mini blogs</h1>
+    <p>This is a safe space to share your wins and fails for everything cooking and baking.</p>
+    <a href="{% url 'post_create' %}" class="btn btn-primary">Create a post</a>
+    
+    {% if posts %}
+    <div class="posts-grid">
+        {% for post in posts %}
+            
+                <a href="{% url 'post_detail' post.slug %}" class="post-card">
+                    {% if post.image %}
+                        <div class="post-card-photo">
+                            <img src="{{ post.image.url }}" alt="{{ post.title}}">
+                        </div>
+                    
+                        <div class="postcard-body">
+                            <h3 class="post-card-title">{{ post.title}}</h3>
+                            <p class="post-card-desc">
+                                <strong>{{ post.owner.username}}</strong> {{ post.description| truncatechars:80}}
+                            </p>
+                        </div>
+                    {% else %}
+                        <div class="post-card-photo placeholder">
+                            {{post.slug}}
+                        </div>
+                    
+                        <div class="post-card-body">
+                            <h3 class="post-card-title">{{ post.title}}</h3>
+                            <p class="post-card-desc">
+                                <strong>{{ post.owner.username}}</strong> {{ post.description| truncatechars:80}}
+                            </p>
+                        </div>
+
+                    {% endif %}
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}
