@@ -20,10 +20,10 @@
                             <img src="{{ post.image.url }}" alt="{{ post.title}}">
                         </div>
                     
-                        <div class="postcard-body">
+                        <div class="post-card-body">
                             <h3 class="post-card-title">{{ post.title}}</h3>
                             <p class="post-card-desc">
-                                <strong>{{ post.owner.username}}</strong> {{ post.description| truncatechars:80}}
+                                <strong>{{ post.owner.username}}</strong> {{ post.paragraph| truncatechars:180}}
                             </p>
                         </div>
                     {% else %}
@@ -34,13 +34,13 @@
                         <div class="post-card-body">
                             <h3 class="post-card-title">{{ post.title}}</h3>
                             <p class="post-card-desc">
-                                <strong>{{ post.owner.username}}</strong> {{ post.description| truncatechars:80}}
+                                <strong>{{ post.owner.username}}</strong> {{ post.paragraph|truncatechars:180}}
                             </p>
                         </div>
 
                     {% endif %}
                 </a>
-            </div>
+            
         {% endfor %}
     </div>
     {% endif %}

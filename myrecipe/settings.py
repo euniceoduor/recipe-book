@@ -29,7 +29,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = [
-    "https://theflourbandit.up.railway.app",
+    "https://www.theflourbandit.com",
 ]
 
 CSRF_COOKIE_SECURE = True

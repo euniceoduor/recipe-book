@@ -44,7 +44,7 @@
         <h2 class="section-title">Ingredients</h2>
         <ul class="ingredient-list">
             {% for ingredient in ingredients %}
-                <li>{{ingredient.quantity| floatformat:2}} {{ ingredient.unit}} {{ingredient.name}} </li>
+                <li>{{ingredient.quantity| floatformat:0}} {{ ingredient.unit}} {{ingredient.name}} </li>
             {% empty %}
                 <li>No ingredients added yet</li>
             {% endfor %}
